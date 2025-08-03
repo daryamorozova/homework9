@@ -12,7 +12,6 @@ public class ListOfElements implements Runnable {
     private List<Integer> list = new ArrayList<>();
     private final int start;
     private final int end;
-
     private int sum = 0;
 
      public ListOfElements(List<Integer> list, int start, int end) {
@@ -23,8 +22,9 @@ public class ListOfElements implements Runnable {
 
     @Override
     public void run() {
-        for (int i = start; i < end; i++) {
+        for (int i = start; i <= end; i++) {
             sum += list.get(i);
+            System.out.println("Индекс: " + i + ", значение: " + list.get(i));
         }
     }
 

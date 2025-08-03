@@ -16,13 +16,22 @@ public static void main(String[] args) {
     ExecutorService executorService = Executors.newFixedThreadPool(4);
 
     for (int i = 0; i < 10; i++) {
-        final int taskNumber = i;
+        final int taskNumber = i + 1;
         executorService.execute(() -> {
             System.out.println("Задача " + taskNumber + " выполнена");
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         });
     }
-    System.out.println("Все задачи выполнены.");
+    System.out.println("Все задачи поставлены в очередь");
     executorService.shutdown();
+    while (!executorService.isTerminated()) {
+//        System.out.println("Ожидание завершения всех задач...");
+    }
+    System.out.println("Все задачи выполнены.");
     }
 }
 

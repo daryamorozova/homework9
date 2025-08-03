@@ -7,18 +7,11 @@ package task2;
 public class TwoThreads {
 
     public static void main(String[] args) throws InterruptedException {
-        Thread t1 = new Thread();
-        Thread t2 = new Thread();
+        Thread t1 = new Thread(new PrintTask("A"));
+        Thread t2 = new Thread(new PrintTask("B"));
 
-        for (int i = 0; i < 5; i++) {
-            t1.run();
-            System.out.println("A");
-            t1.sleep(500);
-            t2.run();
-            System.out.println("B");
-            t2.sleep(500);
-
-        }
+        t1.start();
+        t2.start();
 
     }
 

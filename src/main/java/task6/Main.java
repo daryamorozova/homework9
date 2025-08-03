@@ -1,12 +1,11 @@
 package task6;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Main {
-
-
     private static Integer[] numbers = {3, 6, 9, 15, 16, 1, 2, 5, 8, 63};
     static List<Integer> list = Arrays.asList(numbers);
 
@@ -17,6 +16,7 @@ public class Main {
     }
 
     public static int parallelSum(List<Integer> list) throws InterruptedException {
+        ExecutorService executorService = Executors.newFixedThreadPool(3);
 
         ListOfElements listOfElements1 = new ListOfElements(list, 0, 2);
         ListOfElements listOfElements2 = new ListOfElements(list, 3, 5);
@@ -30,16 +30,16 @@ public class Main {
         t2.start();
         t3.start();
 
-        for (int i = 0; i <= 2; i++) {
-
-        }
-
         t1.join();
         t2.join();
         t3.join();
 
-        return listOfElements1.getSum() + listOfElements1.getSum() + listOfElements3.getSum();
+        int sum = listOfElements1.getSum() + listOfElements2.getSum() + listOfElements3.getSum();
 
+        executorService.shutdown();
+
+        return sum;
     }
-
 }
+
+

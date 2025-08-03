@@ -6,21 +6,22 @@ package task1;
 
 public class OneThread implements Runnable {
 
-    public void run(){
-        System.out.println("Привет из потока!");
+    @Override
+    public void run() {
+        for (int i = 0; i < 5; i++) {
+            System.out.println("Привет из потока!");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         Thread t1 = new Thread(new OneThread());
-
-        for (int i = 0; i < 5; i++) {
-            t1.run();
-            t1.sleep(1000);
-
+            t1.start();
         }
 
     }
 
-
-
-}
